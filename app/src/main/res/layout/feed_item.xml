@@ -36,14 +36,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/feed_item_profile_info_padd">
-
                 <TextView
                     android:id="@+id/name"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/feed_item_profile_name"
                     android:textStyle="bold" />
-
                 <TextView
                     android:id="@+id/timestamp"
                     android:layout_width="fill_parent"

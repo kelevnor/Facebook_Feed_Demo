@@ -20,6 +20,7 @@ import com.kelevnor.facebookfeeddemoapp.Adapter.ADAPTER_feedItem;
 import com.kelevnor.facebookfeeddemoapp.Object.Feed;
 import com.kelevnor.facebookfeeddemoapp.Object.FeedItem;
 import com.kelevnor.facebookfeeddemoapp.Rest.REST_getFeed;
+import com.kelevnor.facebookfeeddemoapp.Utility.UtilityHelperClass;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,10 +49,17 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
             }
         }
 
-        //GET Call to retreive feed
-        REST_getFeed getFeed = new REST_getFeed();
-        getFeed.setOnResultListener(asynResult);
-        getFeed.execute();
+        if(UtilityHelperClass.checkInternetAvailability(this)){
+            //GET Call to retreive feed
+            REST_getFeed getFeed = new REST_getFeed();
+            getFeed.setOnResultListener(asynResult);
+            getFeed.execute();
+        }
+        else{
+            //if no internet action
+        }
+
+
 
     }
 
@@ -134,9 +142,15 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
         //noinspection SimplifiableIfStatement
         if (id == R.id.refresh_feed) {
             //GET Call to retreive feed
-            REST_getFeed getFeed = new REST_getFeed();
-            getFeed.setOnResultListener(asynResult);
-            getFeed.execute();
+            if(UtilityHelperClass.checkInternetAvailability(this)){
+                //GET Call to retreive feed
+                REST_getFeed getFeed = new REST_getFeed();
+                getFeed.setOnResultListener(asynResult);
+                getFeed.execute();
+            }
+            else{
+                //if no internet action
+            }
             return true;
         }
 
