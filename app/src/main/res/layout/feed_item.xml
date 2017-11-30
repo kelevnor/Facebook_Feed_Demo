@@ -67,11 +67,11 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:linksClickable="true"
-            android:visibility="gone"
+            android:visibility="visible"
             android:paddingBottom="10dp"
             android:paddingLeft="@dimen/feed_item_status_pad_left_right"
             android:paddingRight="@dimen/feed_item_status_pad_left_right"
-            android:textColorLink="@color/link" />
+            android:textColor="@color/link" />
 
         <ImageView
             android:id="@+id/feedImage1"
