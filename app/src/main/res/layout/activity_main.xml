@@ -3,19 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
-
-        <!--<android.support.v7.widget.Toolbar-->
-            <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-            <!--android:id="@+id/toolbar"-->
-            <!--android:layout_width="match_parent"-->
-            <!--app:theme="@style/ToolbarColoredBackArrow"-->
-            <!--android:layout_height="?attr/actionBarSize"-->
-            <!--android:background="@color/colorPrimary"-->
-            <!--app:titleTextColor="@color/white"-->
-            <!--app:popupTheme="@style/AppTheme.PopupOverlay"-->
-            <!--app:titleTextAppearance="@style/Toolbar.TitleText"/>-->
-
+    
     <ListView
         android:id="@+id/lv_list"
         android:layout_width="match_parent"
