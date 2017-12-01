@@ -39,8 +39,6 @@ public class ADAPTER_feedItem extends BaseAdapter{
         this.act = act;
         //Creating fonts
 
-//        imageLoader = new ImageLoader(act.getApplicationContext());
-
         openSansThin = Typeface.createFromAsset(con.getAssets(),"fonts/OpenSans-Light.ttf");
         openSansRegular = Typeface.createFromAsset(con.getAssets(),"fonts/OpenSans-Regular.ttf");
         openSansSemiBold = Typeface.createFromAsset(con.getAssets(), "fonts/OpenSans-Semibold.ttf");

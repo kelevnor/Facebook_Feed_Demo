@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Facebook Feed Demo App</string>
+
+    <string name="positive_btn">SURE</string>
+    <string name="negative_btn">NOT YET</string>
+    <string name="neutral_btn">DISMISS</string>
+    <string name="exit_title">EXIT?</string>
+    <string name="exit_message">You are about to exit from the app.</string>
+    <string name="no_internet_title">NO INTERNET</string>
+    <string name="no_internet_message">Make sure you have internet before downloading feed</string>
+    <string name="no_permissions_title">NO PERMISSION</string>
+    <string name="no_permissions_message">You need to allow the app to connect to internet and access external storage to be able to use it.</string>
 </resources>

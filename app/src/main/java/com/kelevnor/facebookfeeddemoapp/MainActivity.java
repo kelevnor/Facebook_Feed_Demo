@@ -36,13 +36,12 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
     ListView list;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         setViews();
-
         if (Build.VERSION.SDK_INT >= 23) {
             if (!hasPermissions(getApplicationContext(), PERMISSIONS)) {
                 ActivityCompat.requestPermissions(MainActivity.this, PERMISSIONS, REQUEST );
@@ -57,10 +56,8 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
         }
         else{
             //if no internet action
+            UtilityHelperClass.oneButtonBuilder(MainActivity.this, getResources().getString(R.string.neutral_btn), getResources().getString(R.string.no_internet_title), getResources().getString(R.string.no_internet_message));
         }
-
-
-
     }
 
     private static boolean hasPermissions(Context context, String... permissions) {
@@ -82,12 +79,16 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //do here
                 } else {
-                    Toast.makeText(getApplicationContext(), "The app was not allowed to write in your storage", Toast.LENGTH_LONG).show();
+                    UtilityHelperClass.oneButtonBuilder(MainActivity.this, getResources().getString(R.string.neutral_btn), getResources().getString(R.string.no_permissions_title), getResources().getString(R.string.no_permissions_message));
                 }
             }
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        UtilityHelperClass.twoButtonsBuilder(MainActivity.this, getResources().getString(R.string.positive_btn), getResources().getString(R.string.negative_btn), getResources().getString(R.string.exit_title), getResources().getString(R.string.exit_message), UtilityHelperClass.TYPE_EXIT);
+    }
 
     private void setViews(){
         list = (ListView) findViewById(R.id.lv_list);
@@ -150,11 +151,10 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
             }
             else{
                 //if no internet action
+                UtilityHelperClass.oneButtonBuilder(MainActivity.this, getResources().getString(R.string.neutral_btn), getResources().getString(R.string.no_internet_title), getResources().getString(R.string.no_internet_message));
             }
             return true;
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 

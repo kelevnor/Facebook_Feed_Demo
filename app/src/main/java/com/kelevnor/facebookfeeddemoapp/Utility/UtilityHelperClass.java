@@ -1,7 +1,9 @@
 package com.kelevnor.facebookfeeddemoapp.Utility;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -10,6 +12,8 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Button;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,6 +24,10 @@ import java.util.Locale;
 
 public class UtilityHelperClass {
 
+    public static int TYPE_EXIT = 10001;
+    public static int TYPE_REFRESH = 10002;
+    public static int TYPE_NO_INTERNET = 10003;
+    public static int TYPE_NO_PERMISSION = 10004;
 
 
     public static String GETurlConnectionErrorStream(HttpURLConnection urlConnection){
@@ -177,4 +185,54 @@ public class UtilityHelperClass {
         }
         catch(Exception ex){}
     }
+
+    //Two Buttons Generic AlertDialog.Builder
+    public static void twoButtonsBuilder(final Activity act, String rightBtn, String leftBtn, String title, String message, final int TYPE){
+        final AlertDialog.Builder builder =
+                new AlertDialog.Builder(act);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton(rightBtn, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+
+                if(TYPE==TYPE_EXIT){
+                    act.finish();
+                }
+                else{
+
+                }
+
+            }
+        });
+        builder.setNegativeButton(leftBtn, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+
+            }
+        });
+
+        builder.show();
+
+    }
+    //One Button Generic AlertDialog.Builder
+    public static void oneButtonBuilder(Activity act, String midBtn, String title, String message){
+        final AlertDialog.Builder builder =
+                new AlertDialog.Builder(act);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton(midBtn, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+
+            }
+        });
+
+        builder.show();
+
+    }
+
 }

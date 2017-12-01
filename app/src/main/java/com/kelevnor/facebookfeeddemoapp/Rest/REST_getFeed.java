@@ -42,7 +42,6 @@ public class REST_getFeed extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
 
-
         try {
             URL url = new URL(ANDROIDHIVE_FEED_URL);
             Log.d("url", ANDROIDHIVE_FEED_URL);
