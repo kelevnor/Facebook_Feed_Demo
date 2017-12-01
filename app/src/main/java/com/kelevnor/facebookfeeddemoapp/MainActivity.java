@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
                 getFeed.execute();
             }
             else{
-                list.setVisibility(View.GONE);
+//              list.setVisibility(View.GONE);        //keep if we want to remove outdated feed from list
                 //if no internet action
                 UtilityHelperClass.oneButtonBuilder(MainActivity.this, getResources().getString(R.string.neutral_btn), getResources().getString(R.string.no_internet_title), getResources().getString(R.string.no_internet_message));
             }
