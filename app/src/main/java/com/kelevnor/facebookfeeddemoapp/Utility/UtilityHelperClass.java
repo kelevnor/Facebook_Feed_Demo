@@ -95,6 +95,23 @@ public class UtilityHelperClass {
         return preference_return;
     }
 
+    public static boolean checkInternetAvailability(Activity act) {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) act.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
+    }
+
     public boolean haveNetworkConnection(Activity act) {
         boolean haveConnectedWifi = false;
         boolean haveConnectedMobile = false;
@@ -118,25 +135,6 @@ public class UtilityHelperClass {
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 
-    public static boolean checkInternetAvailability(Activity act) {
-        boolean haveConnectedWifi = false;
-        boolean haveConnectedMobile = false;
-
-        ConnectivityManager cm = (ConnectivityManager) act.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
-        for (NetworkInfo ni : netInfo) {
-            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
-                if (ni.isConnected())
-                    haveConnectedWifi = true;
-            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
-                if (ni.isConnected())
-                    haveConnectedMobile = true;
-        }
-        return haveConnectedWifi || haveConnectedMobile;
-    }
-
-
-
     public static boolean isLocationEnabled(Context context) {
         int locationMode = 0;
         String locationProviders;
@@ -158,12 +156,51 @@ public class UtilityHelperClass {
         }
     }
 
+    //Two Buttons Generic AlertDialog.Builder
+    public static void twoButtonsBuilder(final Activity act, String rightBtn, String leftBtn, String title, String message, final int TYPE){
+        final AlertDialog.Builder builder =
+                new AlertDialog.Builder(act);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton(rightBtn, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                if(TYPE==TYPE_EXIT){
+                    act.finish();
+                }
+            }
+        });
+        builder.setNegativeButton(leftBtn, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
+    }
+    //One Button Generic AlertDialog.Builder
+    public static void oneButtonBuilder(Activity act, String midBtn, String title, String message){
+        final AlertDialog.Builder builder =
+                new AlertDialog.Builder(act);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton(midBtn, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
+    }
+
     public static String getDate(long time) {
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
         cal.setTimeInMillis(time);
-        String date = android.text.format.DateFormat.format("MM-dd-yyyy", cal).toString();
+        String date = android.text.format.DateFormat.format("MM/dd/yyyy", cal).toString();
         return date;
     }
+
     public static void CopyStream(InputStream is, OutputStream os)
     {
         final int buffer_size=1024;
@@ -184,55 +221,6 @@ public class UtilityHelperClass {
             }
         }
         catch(Exception ex){}
-    }
-
-    //Two Buttons Generic AlertDialog.Builder
-    public static void twoButtonsBuilder(final Activity act, String rightBtn, String leftBtn, String title, String message, final int TYPE){
-        final AlertDialog.Builder builder =
-                new AlertDialog.Builder(act);
-        builder.setTitle(title);
-        builder.setMessage(message);
-        builder.setPositiveButton(rightBtn, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-
-                if(TYPE==TYPE_EXIT){
-                    act.finish();
-                }
-                else{
-
-                }
-
-            }
-        });
-        builder.setNegativeButton(leftBtn, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-
-            }
-        });
-
-        builder.show();
-
-    }
-    //One Button Generic AlertDialog.Builder
-    public static void oneButtonBuilder(Activity act, String midBtn, String title, String message){
-        final AlertDialog.Builder builder =
-                new AlertDialog.Builder(act);
-        builder.setTitle(title);
-        builder.setMessage(message);
-        builder.setPositiveButton(midBtn, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-
-            }
-        });
-
-        builder.show();
-
     }
 
 }

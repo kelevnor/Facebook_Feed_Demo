@@ -3,6 +3,7 @@ package com.kelevnor.facebookfeeddemoapp;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -11,7 +12,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -34,7 +37,8 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
     String[] PERMISSIONS = {android.Manifest.permission.WRITE_EXTERNAL_STORAGE,android.Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.INTERNET};
     public static ArrayList<Feed> listOfFeed;
     ListView list;
-
+    TextView nointernetlabel;
+    Typeface openSansSemiBold,openSansRegular, openSansBold, openSansThin;
 
 
     @Override
@@ -46,17 +50,6 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
             if (!hasPermissions(getApplicationContext(), PERMISSIONS)) {
                 ActivityCompat.requestPermissions(MainActivity.this, PERMISSIONS, REQUEST );
             }
-        }
-
-        if(UtilityHelperClass.checkInternetAvailability(this)){
-            //GET Call to retreive feed
-            REST_getFeed getFeed = new REST_getFeed();
-            getFeed.setOnResultListener(asynResult);
-            getFeed.execute();
-        }
-        else{
-            //if no internet action
-            UtilityHelperClass.oneButtonBuilder(MainActivity.this, getResources().getString(R.string.neutral_btn), getResources().getString(R.string.no_internet_title), getResources().getString(R.string.no_internet_message));
         }
     }
 
@@ -91,7 +84,25 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
     }
 
     private void setViews(){
+        openSansRegular = Typeface.createFromAsset(getAssets(),"fonts/OpenSans-Regular.ttf");
+        openSansThin = Typeface.createFromAsset(getAssets(),"fonts/OpenSans-Light.ttf");
+        openSansSemiBold = Typeface.createFromAsset(getAssets(), "fonts/OpenSans-Semibold.ttf");
+        openSansBold = Typeface.createFromAsset(getAssets(), "fonts/OpenSans-Bold.ttf");
         list = (ListView) findViewById(R.id.lv_list);
+        nointernetlabel = (TextView) findViewById(R.id.tv_nointernetlabel);
+        nointernetlabel.setTypeface(openSansSemiBold);
+        if(UtilityHelperClass.checkInternetAvailability(this)){
+            //GET Call to retreive feed
+            list.setVisibility(View.VISIBLE);
+            REST_getFeed getFeed = new REST_getFeed();
+            getFeed.setOnResultListener(asynResult);
+            getFeed.execute();
+        }
+        else{
+            list.setVisibility(View.GONE);
+            //if no internet action
+            UtilityHelperClass.oneButtonBuilder(MainActivity.this, getResources().getString(R.string.neutral_btn), getResources().getString(R.string.no_internet_title), getResources().getString(R.string.no_internet_message));
+        }
     }
 
     private void populateListOfFeed (JSONArray outerArray, String result){
@@ -144,12 +155,14 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
         if (id == R.id.refresh_feed) {
             //GET Call to retreive feed
             if(UtilityHelperClass.checkInternetAvailability(this)){
+                list.setVisibility(View.VISIBLE);
                 //GET Call to retreive feed
                 REST_getFeed getFeed = new REST_getFeed();
                 getFeed.setOnResultListener(asynResult);
                 getFeed.execute();
             }
             else{
+                list.setVisibility(View.GONE);
                 //if no internet action
                 UtilityHelperClass.oneButtonBuilder(MainActivity.this, getResources().getString(R.string.neutral_btn), getResources().getString(R.string.no_internet_title), getResources().getString(R.string.no_internet_message));
             }
